@@ -210,12 +210,16 @@ public class LogingPage extends javax.swing.JFrame {
             return;
         }
         
-        String url = "jdbc:mysql://159.65.12.91:3306/elephant";
-        String user = "suka";
-        String pass = "sukapass";
+//        String url = "jdbc:mysql://159.65.12.91:3306/elephant";
+//        String user = "suka";
+//        String pass = "sukapass";
         
-        try{
-            Database.getInstance().connect(url, user, pass);
+        
+            var db = Database.getInstance(); //when calling this first time its connecting to db.
+            if(db.con == null){
+                JOptionPane.showMessageDialog(null, "Databse Connection Faild");
+                return;
+            }
             new DashBoard().setVisible(true);
             
 //            String query1 = "select * from logingpage";
@@ -232,10 +236,8 @@ public class LogingPage extends javax.swing.JFrame {
 //                    JOptionPane.showMessageDialog(this, "username or password is incorrect!");
 //                }
 //            }
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+        
+        
     }//GEN-LAST:event_signInMouseClicked
 
     private void fpassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fpassMouseClicked

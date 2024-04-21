@@ -4,6 +4,8 @@
  */
 package src;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,6 +18,18 @@ public class Database {
         // Create the instance if it's null
         if (instance == null) {
             instance = new Database();
+            
+            String url = "jdbc:mysql://159.65.12.91:3306/elephant";
+            String user = "suka";
+            String pass = "sukapass";
+            
+            try {
+                instance.connect(url, user, pass);
+                System.out.println("connected to database");
+            } catch (java.lang.Exception ex) {
+                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                instance.con = null;
+            }
         }
         return instance;
     }

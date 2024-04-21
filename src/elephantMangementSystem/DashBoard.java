@@ -328,11 +328,11 @@ public class DashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     public static void main(String args[]){
-//        try {
-//            Statement st = Database.getInstance().con.createStatement();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            Statement st = Database.getInstance().con.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
