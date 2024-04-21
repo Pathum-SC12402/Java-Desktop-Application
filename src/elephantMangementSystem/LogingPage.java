@@ -2,7 +2,7 @@ package elephantMangementSystem;
 
 import java.sql.*;
 import javax.swing.JOptionPane;
-import org.gjt.mm.mysql.Driver;
+import src.*;
 
 public class LogingPage extends javax.swing.JFrame {
     public LogingPage() {
@@ -21,7 +21,7 @@ public class LogingPage extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         userName = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passField = new javax.swing.JPasswordField();
         signIn = new javax.swing.JButton();
         fpass = new javax.swing.JButton();
         password = new javax.swing.JLabel();
@@ -96,14 +96,14 @@ public class LogingPage extends javax.swing.JFrame {
         userName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         userName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
-        jPasswordField1.setBackground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setForeground(new java.awt.Color(153, 153, 153));
-        jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        jPasswordField1.setMinimumSize(new java.awt.Dimension(2, 16));
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        passField.setBackground(new java.awt.Color(255, 255, 255));
+        passField.setForeground(new java.awt.Color(153, 153, 153));
+        passField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        passField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        passField.setMinimumSize(new java.awt.Dimension(2, 16));
+        passField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                passFieldActionPerformed(evt);
             }
         });
 
@@ -150,7 +150,7 @@ public class LogingPage extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(102, 102, 102)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passField, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                                 .addComponent(userName))
@@ -177,7 +177,7 @@ public class LogingPage extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(fpass, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -194,40 +194,47 @@ public class LogingPage extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void passFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_passFieldActionPerformed
 
     private void signInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signInMouseClicked
         String un = userName.getText();
-        String p = password.getText();
+        String p = passField.getText();
         
-        String url = "jdbc:mysql://localhost:3306/elephant";
-        String user = "root";
-        String pass = "";
+        System.out.println(un);
+        System.out.println(p);
+        
+        if(!un.equals("admin") || !p.equals("admin")){
+            JOptionPane.showMessageDialog(this, "username or password is incorrect!");
+            return;
+        }
+        
+        String url = "jdbc:mysql://159.65.12.91:3306/elephant";
+        String user = "suka";
+        String pass = "sukapass";
         
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url,user,pass);
-            Statement stat = con.createStatement();
+            Database.getInstance().connect(url, user, pass);
+            new DashBoard().setVisible(true);
             
-            String query1 = "select * from logingpage";
-            ResultSet result = stat.executeQuery(query1);
-            
-            while(result.next()){
-                String username = result.getString("userName");
-                String password = result.getString("Password");
-                
-                if(un.equals(username) && p.equals(password)){
-                    new DashBoard().setVisible(true);
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "username or password is incorrect!");
-                }
-            }
+//            String query1 = "select * from logingpage";
+//            ResultSet result = stat.executeQuery(query1);
+//            
+//            while(result.next()){
+//                String username = result.getString("userName");
+//                String password = result.getString("Password");
+//                
+//                if(un.equals(username) && p.equals(password)){
+//                    
+//                }
+//                else{
+//                    JOptionPane.showMessageDialog(this, "username or password is incorrect!");
+//                }
+//            }
         }
         catch(Exception e){
-            JOptionPane.showMessageDialog(null, "error while establishing connection");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_signInMouseClicked
 
@@ -276,7 +283,7 @@ public class LogingPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField passField;
     private javax.swing.JLabel password;
     private javax.swing.JButton signIn;
     private javax.swing.JTextField userName;
