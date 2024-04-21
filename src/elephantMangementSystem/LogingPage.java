@@ -232,12 +232,19 @@ public class LogingPage extends javax.swing.JFrame {
     }//GEN-LAST:event_signInMouseClicked
 
     private void fpassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fpassMouseClicked
-        String username = JOptionPane.showInputDialog("Enter the username: ");
-        if(username.equals("admin")) {
+        String dogName = JOptionPane.showInputDialog("Enter your first DOG's name: ");
+        
+        if(dogName.equalsIgnoreCase("shadow")) {
             JOptionPane.showMessageDialog(null, "The username and password is 'admin'");
         } 
         else {
-            JOptionPane.showMessageDialog(null, "Invalid username");
+            JOptionPane.showMessageDialog(null, "Invalid dog name. Hint: The first letter of the correct dog name is 'S'");
+            dogName = JOptionPane.showInputDialog("Try again. Enter your first DOG's name: ");
+            if(dogName.equalsIgnoreCase("shadow")) {
+                JOptionPane.showMessageDialog(null, "The username and password is 'admin'");
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid dog name.");
+            }
         }
     }//GEN-LAST:event_fpassMouseClicked
 
