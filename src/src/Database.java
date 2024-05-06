@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package src;
 import java.sql.*;
 import java.util.logging.Level;
@@ -19,9 +16,9 @@ public class Database {
         if (instance == null) {
             instance = new Database();
             
-            String url = "jdbc:mysql://159.65.12.91:3306/elephant";
-            String user = "suka";
-            String pass = "sukapass";
+            String url = "jdbc:sql6.freesqldatabase.com:3306/sql6702245";
+            String user = "sql6702245";
+            String pass = "5EjAx8cGNr";
             
             try {
                 instance.connect(url, user, pass);

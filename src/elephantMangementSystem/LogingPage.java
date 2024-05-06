@@ -6,6 +6,7 @@ import src.*;
 
 public class LogingPage extends javax.swing.JFrame {
     public LogingPage() {
+        this.setResizable(false);
         initComponents();
     }
 
@@ -205,39 +206,27 @@ public class LogingPage extends javax.swing.JFrame {
         System.out.println(un);
         System.out.println(p);
         
+        if(un.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Username cannot be empty!");
+            return;
+        }
+        if(p.isEmpty()){
+            JOptionPane.showMessageDialog(this, "password cannot be empty!");
+            return;
+        }
+        
         if(!un.equals("admin") || !p.equals("admin")){
             JOptionPane.showMessageDialog(this, "username or password is incorrect!");
             return;
         }
-        
-//        String url = "jdbc:mysql://159.65.12.91:3306/elephant";
-//        String user = "suka";
-//        String pass = "sukapass";
-        
-        
+ 
             var db = Database.getInstance(); //when calling this first time its connecting to db.
             if(db.con == null){
                 JOptionPane.showMessageDialog(null, "Databse Connection Faild");
                 return;
             }
             new DashBoard().setVisible(true);
-            
-//            String query1 = "select * from logingpage";
-//            ResultSet result = stat.executeQuery(query1);
-//            
-//            while(result.next()){
-//                String username = result.getString("userName");
-//                String password = result.getString("Password");
-//                
-//                if(un.equals(username) && p.equals(password)){
-//                    
-//                }
-//                else{
-//                    JOptionPane.showMessageDialog(this, "username or password is incorrect!");
-//                }
-//            }
-        
-        
+            this.dispose();
     }//GEN-LAST:event_signInMouseClicked
 
     private void fpassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fpassMouseClicked

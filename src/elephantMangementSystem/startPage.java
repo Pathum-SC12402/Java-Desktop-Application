@@ -4,6 +4,8 @@
  */
 package elephantMangementSystem;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author Timasha
@@ -15,6 +17,8 @@ public class startPage extends javax.swing.JFrame {
      */
     public startPage() {
         initComponents();
+        this.setResizable(false);
+        //setSize(Toolkit.getDefaultToolkit().getScreenSize());
     }
 
     /**
@@ -83,7 +87,8 @@ public class startPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sbuttonMouseClicked
-        new LogingPage().setVisible(true);
+        new loding().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_sbuttonMouseClicked
 
     /**
