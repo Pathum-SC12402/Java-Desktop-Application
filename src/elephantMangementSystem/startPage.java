@@ -87,7 +87,7 @@ public class startPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sbuttonMouseClicked
-        new loding().setVisible(true);
+        new LogingPage().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_sbuttonMouseClicked
 
