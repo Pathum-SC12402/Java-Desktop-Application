@@ -4,20 +4,40 @@
  */
 package elephantMangementSystem;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import src.Database;
+
 /**
  *
  * @author Timasha
  */
 public class addVaccineDetails extends javax.swing.JFrame {
-
+    private Database instance;
+    private Connection con;
+    private String quary1,quary2;
+    private PreparedStatement statement1,statement2;
     /**
      * Creates new form addVaccineDetails
      */
     public addVaccineDetails() {
+        instance = Database.getInstance();
+        con = instance.getConnection();
         initComponents();
+        clear();
+        this.setResizable(false);
         this.setResizable(false);
     }
-
+    public void clear(){
+        userName2.setText("");
+        jTextArea3.setText("");
+        userName9.setText("");
+        jTextArea4.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -419,7 +439,28 @@ public class addVaccineDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_donatebutMouseClicked
 
     private void donatebutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donatebutActionPerformed
-        // TODO add your handling code here:
+        try {           
+            quary2="update health_vaccinate set date=?,description=?,next_vaccine_date=? where eid=?";
+            statement2=con.prepareStatement(quary2);
+            statement2.setString(1,userName2.getText());            
+            statement2.setString(2,jTextArea3.getText());
+            statement2.setString(3,userName9.getText());
+            statement2.setInt(4,Integer.parseInt(userName1.getText()));
+            
+            int row=statement2.executeUpdate();            
+            
+            if(row>0){
+                System.out.println(row+"rows() affected");
+                JOptionPane.showMessageDialog(this, "Data Updating Is Successful", "success", JOptionPane.INFORMATION_MESSAGE);
+            }
+            statement2.close();
+            clear();
+        }catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Please Enter elephant existing ID or Fill Other fields!", "fail", JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Database Connection is fail!", "fail", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_donatebutActionPerformed
 
     private void userName2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userName2MouseClicked
@@ -455,7 +496,30 @@ public class addVaccineDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_enterMouseClicked
 
     private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel tb1Model=(DefaultTableModel)jTable1.getModel();
+        tb1Model.setRowCount(0);
+        quary1="select * from elephant,health_vaccinate where elephant.id=health_vaccinate.eid and elephant.id=?";
+        
+        try {
+            statement1 = con.prepareStatement(quary1);
+            statement1.setInt(1,Integer.parseInt(jTextField1.getText()));
+            ResultSet rs = statement1.executeQuery();
+            
+            while(rs.next()){
+                Object[] row = new Object[5];
+                row[0]=String.valueOf(rs.getInt("eid"));
+                row[1]=rs.getString("name"); 
+                row[2]=rs.getString("date");             
+                row[3]=rs.getString("description");
+                row[4]=rs.getString("next_vaccine_date"); 
+                 
+                tb1Model.addRow(row);
+            }
+            statement1.close();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_enterActionPerformed
 
     /**
