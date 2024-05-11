@@ -4,20 +4,42 @@
  */
 package elephantMangementSystem;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import src.Database;
+
 /**
  *
  * @author Timasha
  */
 public class addElephants extends javax.swing.JFrame {
-
+    private Database instance;
+    private Connection con;
+    private String quary1,quary2;
+    private PreparedStatement statement1,statement2;
     /**
      * Creates new form addElephants
      */
     public addElephants() {
         initComponents();
+        instance = Database.getInstance();
+        con = instance.getConnection();
+        clear();
         this.setResizable(false);
     }
-
+    public void clear(){
+        userName.setText("");
+        userName1.setText("");
+        userName2.setText("");
+        userName3.setText("");
+        userName4.setText("");
+        userName5.setText("");
+        userName7.setText("");
+        userName8.setText("");
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -274,6 +296,11 @@ public class addElephants extends javax.swing.JFrame {
                 enterMouseClicked(evt);
             }
         });
+        enter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enterActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -423,6 +450,38 @@ public class addElephants extends javax.swing.JFrame {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_backActionPerformed
+
+    private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
+        try {
+            quary1="insert into elephant(id,name,gender,dob,pob,training_info) values(?,?,?,?,?,?)";
+            statement1 = con.prepareStatement(quary1);
+            statement1.setInt(1, Integer.parseInt(userName1.getText()));
+            statement1.setString(2, userName.getText());
+            statement1.setString(3, userName2.getText());
+            statement1.setString(4, userName8.getText());
+            statement1.setString(5, userName4.getText());
+            statement1.setString(6, userName3.getText());
+            
+            quary2="insert into health_record(eid,weight,height) values(?,?,?)";
+            statement2 = con.prepareStatement(quary2);
+            statement2.setInt(1, Integer.parseInt(userName1.getText()));
+            statement2.setString(2, userName7.getText());
+            statement2.setString(3, userName5.getText());
+            
+            int rows1=statement1.executeUpdate();
+            int rows2=statement2.executeUpdate();
+            if(rows1 > 0){
+                System.out.println(rows1+"rows() affected");
+                JOptionPane.showMessageDialog(this, "Data Entering Is Successful", "success", JOptionPane.INFORMATION_MESSAGE);
+            }            
+            statement1.close();
+            clear();
+        }catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Please Enter elephant ID!", "fail", JOptionPane.INFORMATION_MESSAGE);
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "You entered ID is exist!", "fail", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_enterActionPerformed
 
     /**
      * @param args the command line arguments
