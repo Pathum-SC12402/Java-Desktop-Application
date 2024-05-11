@@ -1,17 +1,100 @@
 package elephantMangementSystem;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import src.Database;
 
 public class feedingSchedule extends javax.swing.JFrame {
-
-    public feedingSchedule() {
+    private Database instance;
+    private Connection con;
+    private String quary1,quary2,quary3,quary4,quary5,quary6,quary7,quary8,quary9,quary10;
+    private PreparedStatement statement1,statement2,statement3,statement4,statement5,statement6,statement7,statement8,statement9,statement10;
+    static int num=0;
+    
+    public feedingSchedule() throws SQLException{
+        instance = Database.getInstance();
+        con = instance.getConnection();
         initComponents();
-        this.setResizable(false);
+        this.setResizable(true);
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("MMMM-dd");
         String strDate = formatter.format(date);
         day.setText(strDate);
+
+        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
+        String strDate1 = formatter1.format(date);      
+               
+        quary1="select max(id) as id from feed";
+        statement1=con.prepareStatement(quary1);
+        ResultSet rs1=statement1.executeQuery();
+        if (rs1.next()) {
+            num = rs1.getInt("id");
+        }
+                
+        if(num>0){
+            quary2="select * from feed where id=?";
+            statement2=con.prepareStatement(quary2);
+            statement2.setInt(1, num);
+            ResultSet rs2=statement2.executeQuery();
+            while(rs2.next()){               
+                if(!rs2.getString("date").equals(strDate1)){
+                    quary10="insert into feed(date) values(?)";
+                    statement10=con.prepareStatement(quary10);
+                    statement10.setString(1, strDate1);
+                    int row=statement10.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Database Is Updated for Today!", "success", JOptionPane.INFORMATION_MESSAGE);
+                    num++;
+                }
+            }
+            quary2="select * from feed where id=?";
+            statement2=con.prepareStatement(quary2);
+            statement2.setInt(1, num);
+            ResultSet rs3=statement2.executeQuery();
+
+            if(rs3.next()){
+                int milk1=rs3.getInt("milk1");
+                int milk2=rs3.getInt("milk2");
+                int milk3=rs3.getInt("milk3");
+                int milk4=rs3.getInt("milk4");
+                int food1=rs3.getInt("food1");
+                int food2=rs3.getInt("food2");
+                int food3=rs3.getInt("food3");
+
+                if(milk1==1){
+                    jCheckBox1.setSelected(true);
+                }
+                if(milk2==1){
+                    jCheckBox2.setSelected(true);
+                }
+                if(milk3==1){
+                    jCheckBox4.setSelected(true);
+                }
+                if(milk4==1){
+                    jCheckBox3.setSelected(true);
+                }
+                if(food1==1){
+                    userName7.setText(rs3.getString("food1_description"));
+                }
+                if(food2==1){
+                    userName8.setText(rs3.getString("food1_description"));
+                }
+                if(food3==1){
+                    userName9.setText(rs3.getString("food1_description"));
+                }
+
+            }
+        }
+        statement1.close();
+        statement2.close();
+        //statement10.close(); 
     }
 
     @SuppressWarnings("unchecked")
@@ -260,6 +343,11 @@ public class feedingSchedule extends javax.swing.JFrame {
                 enter1MouseClicked(evt);
             }
         });
+        enter1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enter1ActionPerformed(evt);
+            }
+        });
 
         enter2.setBackground(new java.awt.Color(0, 105, 68));
         enter2.setForeground(new java.awt.Color(255, 255, 255));
@@ -270,6 +358,11 @@ public class feedingSchedule extends javax.swing.JFrame {
         enter2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 enter2MouseClicked(evt);
+            }
+        });
+        enter2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enter2ActionPerformed(evt);
             }
         });
 
@@ -545,19 +638,79 @@ public class feedingSchedule extends javax.swing.JFrame {
     }//GEN-LAST:event_userName9MouseClicked
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            if(jCheckBox1.isSelected()){
+                quary3="update feed set milk1=1 where id =?";
+                statement3=con.prepareStatement(quary3);
+                statement3.setInt(1, num);
+                int row=statement3.executeUpdate();
+            }else{
+                quary3="update feed set milk1=0 where id =?";
+                statement3=con.prepareStatement(quary3);
+                statement3.setInt(1, num);
+                int row=statement3.executeUpdate();
+            }            
+            statement3.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(feedingSchedule.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            if(jCheckBox2.isSelected()){
+                quary4="update feed set milk2=1 where id =?";
+                statement4=con.prepareStatement(quary4);
+                statement4.setInt(1, num);
+                int row=statement4.executeUpdate();
+            }else{
+                quary4="update feed set milk2=0 where id =?";
+                statement4=con.prepareStatement(quary4);
+                statement4.setInt(1, num);
+                int row=statement4.executeUpdate();
+            }           
+            statement4.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(feedingSchedule.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        // TODO add your handling code here:
+        try {
+            if(jCheckBox3.isSelected()){
+                quary5="update feed set milk4=1 where id =?";
+                statement5=con.prepareStatement(quary5);
+                statement5.setInt(1, num);
+                int row=statement5.executeUpdate();
+            }else{
+                quary5="update feed set milk4=0 where id =?";
+                statement5=con.prepareStatement(quary5);
+                statement5.setInt(1, num);
+                int row=statement5.executeUpdate();
+            }            
+            statement5.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(feedingSchedule.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jCheckBox3ActionPerformed
 
     private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
-        // TODO add your handling code here:
+        try {
+            if(jCheckBox4.isSelected()){
+                quary6="update feed set milk3=1 where id =?";
+                statement6=con.prepareStatement(quary6);
+                statement6.setInt(1, num);
+                int row=statement6.executeUpdate();
+            }else{
+                quary6="update feed set milk3=0 where id =?";
+                statement6=con.prepareStatement(quary6);
+                statement6.setInt(1, num);
+                int row=statement6.executeUpdate();
+            }            
+            statement6.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(feedingSchedule.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jCheckBox4ActionPerformed
 
     private void enterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enterMouseClicked
@@ -573,8 +726,64 @@ public class feedingSchedule extends javax.swing.JFrame {
     }//GEN-LAST:event_enter2MouseClicked
 
     private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
-        // TODO add your handling code here:
+    try {
+                if(isEmpty(userName7)){
+                    quary7="update feed set food1=0,food1_description=null where id=?";
+                    statement7=con.prepareStatement(quary7);
+                    statement7.setInt(1, num);
+                    int row=statement7.executeUpdate();
+                }else{
+                    quary7="update feed set food1=1,food1_description=? where id=?";
+                    statement7=con.prepareStatement(quary7);
+                    statement7.setString(1, userName7.getText());
+                    statement7.setInt(2, num);
+                    int row=statement7.executeUpdate();
+                }
+                statement7.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(feedingSchedule.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }//GEN-LAST:event_enterActionPerformed
+
+    private void enter1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enter1ActionPerformed
+        try {
+                if(isEmpty(userName8)){
+                    quary8="update feed set food2=0,food2_description=null where id=?";
+                    statement8=con.prepareStatement(quary8);
+                    statement8.setInt(1, num);
+                    int row=statement8.executeUpdate();
+                }else{
+                    quary8="update feed set food2=1,food2_description=? where id=?";
+                    statement8=con.prepareStatement(quary8);
+                    statement8.setString(1, userName8.getText());
+                    statement8.setInt(2, num);
+                    int row=statement8.executeUpdate();
+                }
+                statement8.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(feedingSchedule.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }//GEN-LAST:event_enter1ActionPerformed
+
+    private void enter2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enter2ActionPerformed
+        try {
+                if(isEmpty(userName9)){
+                    quary9="update feed set food3=0,food3_description=null where id=?";
+                    statement9=con.prepareStatement(quary9);
+                    statement9.setInt(1, num);
+                    int row=statement9.executeUpdate();
+                }else{
+                    quary9="update feed set food3=1,food3_description=? where id=?";
+                    statement9=con.prepareStatement(quary9);
+                    statement9.setString(1, userName9.getText());
+                    statement9.setInt(2, num);
+                    int row=statement9.executeUpdate();
+                }
+                statement9.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(feedingSchedule.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+    }//GEN-LAST:event_enter2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -657,12 +866,19 @@ public class feedingSchedule extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new feedingSchedule().setVisible(true);
+                try {
+                    new feedingSchedule().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(feedingSchedule.class.getName()).log(Level.SEVERE, null, ex);
+                }
      
             }
         }); 
     }
-
+     private boolean isEmpty(JTextField userName7) {
+        return userName7.getText().trim().isEmpty();
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 
 }
