@@ -4,16 +4,28 @@
  */
 package elephantMangementSystem;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+import src.Database;
+
 /**
  *
  * @author Timasha
  */
 public class elephantDetails extends javax.swing.JFrame {
-
+    private Database instance;
+    private Connection con;
+    private String quary;
+    private PreparedStatement statement;
     /**
      * Creates new form elephantDetails
      */
     public elephantDetails() {
+        instance = Database.getInstance();
+        con = instance.getConnection();
         initComponents();
     }
 
@@ -239,7 +251,34 @@ public class elephantDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel tb1Model=(DefaultTableModel)jTable1.getModel();
+        tb1Model.setRowCount(0);
+        quary="select * from elephant,health_record where elephant.id=health_record.eid and elephant.id=?";
+        
+        try {
+            statement = con.prepareStatement(quary);
+            statement.setInt(1,Integer.parseInt(jTextField1.getText()));
+            ResultSet rs = statement.executeQuery();
+            
+            while(rs.next()){
+                Object[] row = new Object[9];
+                row[0]=String.valueOf(rs.getInt("id"));
+                row[1]=rs.getString("name");
+                row[2]=rs.getString("gender");
+                row[3]=String.valueOf(rs.getInt("height"));
+                row[4]=String.valueOf(rs.getInt("weight"));
+                row[5]=rs.getString("eid");
+                row[6]=rs.getString("dob");
+                row[7]=rs.getString("pob");
+                row[8]=rs.getString("training_info");          
+                 
+                tb1Model.addRow(row);
+            }
+            statement.close();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_enterActionPerformed
 
     private void enterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enterMouseClicked
