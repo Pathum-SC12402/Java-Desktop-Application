@@ -4,20 +4,37 @@
  */
 package elephantMangementSystem;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import src.Database;
+
 /**
  *
  * @author Timasha
  */
 public class updateElephantsDetails extends javax.swing.JFrame {
-
+    private Database instance;
+    private Connection con;
+    private String quary1,quary2;
+    private PreparedStatement statement1,statement2;
     /**
      * Creates new form editElephantsDetails
      */
     public updateElephantsDetails() {
+        instance = Database.getInstance();
+        con = instance.getConnection();
         initComponents();
+        clear();
         this.setResizable(false);
     }
-
+    public void clear(){
+        userName.setText("");
+        userName3.setText("");
+        userName5.setText("");
+        userName7.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -331,7 +348,36 @@ public class updateElephantsDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_enterMouseClicked
 
     private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
-        // TODO add your handling code here:
+        try {
+            quary1="update elephant set name=?,training_info=? where id=?";
+            statement1=con.prepareStatement(quary1);
+            statement1.setString(1,userName.getText());
+            statement1.setString(2,userName3.getText());
+            statement1.setString(3,userName1.getText());
+            
+            quary2="update health_record set weight=?,height=? where eid=?";
+            statement2=con.prepareStatement(quary2);
+            statement2.setInt(1,Integer.parseInt(userName7.getText()));
+            statement2.setInt(2,Integer.parseInt(userName5.getText()));
+            statement2.setString(3,userName1.getText());
+            
+            int row1=statement1.executeUpdate();
+            int row2=statement2.executeUpdate();
+            
+            if(row1>0){
+                System.out.println(row1+"rows() affected");
+                JOptionPane.showMessageDialog(this, "Data Updating Is Successful", "success", JOptionPane.INFORMATION_MESSAGE);
+            }
+            statement1.close();
+            statement2.close();
+            clear();
+        }catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Please Enter elephant existing ID or Fill Other fields!", "fail", JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Database Connection is fail!", "fail", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
     }//GEN-LAST:event_enterActionPerformed
 
     private void userName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userName1ActionPerformed
