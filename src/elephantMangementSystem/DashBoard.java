@@ -6,9 +6,38 @@ import java.util.logging.Logger;
 import src.Database;
 
 public class DashBoard extends javax.swing.JFrame {
-
+    private Database instance;
+    private Connection con;
+    private String quary1,quary2;
+    private PreparedStatement statement1,statement2;
+    
     public DashBoard() {
-        initComponents();
+        try {
+            initComponents();
+            int num1 = 0;
+            int num2 = 0;
+            instance = Database.getInstance();
+            con = instance.getConnection();
+            
+            quary1="select count(id) as count from donations";
+            statement1=con.prepareStatement(quary1);
+            ResultSet rs1=statement1.executeQuery();
+            while(rs1.next()){
+                num1=rs1.getInt("count");
+            }
+            jLabel20.setText(String.valueOf(num1));
+            
+            quary2="select count(id) as count from elephant";
+            statement2=con.prepareStatement(quary2);
+            ResultSet rs2=statement2.executeQuery();
+            while(rs2.next()){
+                num2=rs2.getInt("count");
+            }
+            jLabel19.setText(String.valueOf(num2));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
