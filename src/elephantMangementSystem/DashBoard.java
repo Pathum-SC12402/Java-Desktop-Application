@@ -407,9 +407,15 @@ public class DashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_healthMouseClicked
 
     private void feedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_feedMouseClicked
-        feedingSchedule obj = new feedingSchedule();
-        obj.setVisible(true);
-        dispose();
+        feedingSchedule obj;
+        try {
+            obj = new feedingSchedule();
+            obj.setVisible(true);
+            dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_feedMouseClicked
 
     private void donateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_donateMouseClicked
