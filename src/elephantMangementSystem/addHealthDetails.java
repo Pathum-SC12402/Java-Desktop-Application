@@ -4,20 +4,39 @@
  */
 package elephantMangementSystem;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import src.Database;
+
 /**
  *
  * @author Timasha
  */
 public class addHealthDetails extends javax.swing.JFrame {
-
+    private Database instance;
+    private Connection con;
+    private String quary1,quary2;
+    private PreparedStatement statement1,statement2;
     /**
      * Creates new form addHealthDetails
      */
     public addHealthDetails() {
+        instance = Database.getInstance();
+        con = instance.getConnection();
         initComponents();
+        clear();
         this.setResizable(false);
     }
-
+    public void clear(){
+        userName2.setText("");
+        userName4.setText("");
+        userName8.setText("");
+        jTextArea1.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -421,7 +440,30 @@ public class addHealthDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel tb1Model=(DefaultTableModel)jTable1.getModel();
+        tb1Model.setRowCount(0);
+        quary1="select * from elephant,health_record where elephant.id=health_record.eid and elephant.id=?";
+        
+        try {
+            statement1 = con.prepareStatement(quary1);
+            statement1.setInt(1,Integer.parseInt(jTextField1.getText()));
+            ResultSet rs = statement1.executeQuery();
+            
+            while(rs.next()){
+                Object[] row = new Object[5];
+                row[0]=String.valueOf(rs.getInt("eid"));
+                row[1]=rs.getString("name");             
+                row[2]=String.valueOf(rs.getInt("height"));
+                row[3]=String.valueOf(rs.getInt("weight"));
+                row[4]=rs.getString("description");          
+                 
+                tb1Model.addRow(row);
+            }
+            statement1.close();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_enterActionPerformed
 
     private void enterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enterMouseClicked
@@ -441,7 +483,30 @@ public class addHealthDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_donatebutActionPerformed
 
     private void donatebutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_donatebutMouseClicked
-
+        try {           
+            quary2="update health_record set date=?,weight=?,height=?,description=? where eid=?";
+            statement2=con.prepareStatement(quary2);
+            statement2.setString(1,userName2.getText());
+            statement2.setInt(2,Integer.parseInt(userName4.getText()));
+            statement2.setInt(3,Integer.parseInt(userName8.getText()));
+            statement2.setString(4,jTextArea1.getText());
+            statement2.setInt(5,Integer.parseInt(userName1.getText()));
+            
+            int row=statement2.executeUpdate();             
+            
+            if(row>0){
+                System.out.println(row+"rows() affected");
+                JOptionPane.showMessageDialog(this, "Data Updating Is Successful", "success", JOptionPane.INFORMATION_MESSAGE);
+            }
+            statement2.close();
+            clear();
+        }catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Please Enter elephant existing ID or Fill Other fields!", "fail", JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database Connection is fail!", "fail", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_donatebutMouseClicked
 
     private void userName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userName1ActionPerformed
