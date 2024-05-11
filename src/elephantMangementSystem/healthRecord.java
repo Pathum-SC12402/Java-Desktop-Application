@@ -4,8 +4,11 @@
  */
 package elephantMangementSystem;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -137,9 +140,13 @@ public class healthRecord extends javax.swing.JFrame {
     }//GEN-LAST:event_vaccineActionPerformed
 
     private void todayVacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_todayVacMouseClicked
-        todayVaccines obj = new todayVaccines();
-        obj.setVisible(true);
-        dispose();
+        try {
+            todayVaccines obj = new todayVaccines();
+            obj.setVisible(true);
+            dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(healthRecord.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_todayVacMouseClicked
 
     private void todayVacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_todayVacActionPerformed
