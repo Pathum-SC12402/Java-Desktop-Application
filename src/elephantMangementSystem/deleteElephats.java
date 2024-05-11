@@ -4,17 +4,30 @@
  */
 package elephantMangementSystem;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import src.Database;
+
 /**
  *
  * @author Timasha
  */
 public class deleteElephats extends javax.swing.JFrame {
-
+    private Database instance;
+    private Connection con;
+    private String quary1,quary2,quary3;
+    private PreparedStatement statement1,statement2,statement3;
     /**
      * Creates new form deleteElephats
      */
     public deleteElephats() {
         initComponents();
+        instance = Database.getInstance();
+        con = instance.getConnection();
         this.setResizable(false);
     }
 
@@ -147,6 +160,11 @@ public class deleteElephats extends javax.swing.JFrame {
                 deleteMouseClicked(evt);
             }
         });
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -157,7 +175,7 @@ public class deleteElephats extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,6 +231,36 @@ public class deleteElephats extends javax.swing.JFrame {
     private void deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteMouseClicked
         
     }//GEN-LAST:event_deleteMouseClicked
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        try {
+            quary1="delete from elephant where id=?";
+            statement1=con.prepareStatement(quary1);
+            statement1.setInt(1,Integer.parseInt(jTextField1.getText()));
+
+            quary2="delete from health_record where eid=?";
+            statement2=con.prepareStatement(quary2);
+            statement2.setInt(1,Integer.parseInt(jTextField1.getText()));
+            
+            quary3="delete from health_vaccinate where eid=?";
+            statement3=con.prepareStatement(quary2);
+            statement3.setInt(1,Integer.parseInt(jTextField1.getText()));
+            
+            int rows1=statement1.executeUpdate();
+            int rows2=statement2.executeUpdate();
+            int rows3=statement3.executeUpdate();
+            
+            if(rows1 > 0){
+                System.out.println(rows1+"rows() affected");
+                JOptionPane.showMessageDialog(this, "Data Deleting Is Successful", "success", JOptionPane.INFORMATION_MESSAGE);
+            }            
+            statement1.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(deleteElephats.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }//GEN-LAST:event_deleteActionPerformed
 
     /**
      * @param args the command line arguments
