@@ -4,25 +4,58 @@
  */
 package elephantMangementSystem;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import src.Database;
 
 /**
  *
  * @author Timasha
  */
 public class todayVaccines extends javax.swing.JFrame {
-
+    private Database instance;
+    private Connection con;
+    private String quary;
+    private PreparedStatement statement;
     /**
      * Creates new form todayVaccines
      */
-    public todayVaccines() {
+    public todayVaccines() throws SQLException{
+        instance = Database.getInstance();
+        con = instance.getConnection();
         initComponents();
         this.setResizable(false);
         Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("MMMM-dd");
-        String strDate = formatter.format(date);
-        day.setText(strDate);
+        SimpleDateFormat formatter1 = new SimpleDateFormat("MMMM-dd");
+        String strDate1 = formatter1.format(date);
+        day1.setText(strDate1);
+        SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+        String strDate2 = formatter2.format(date);
+        day2.setText(strDate2);
+        
+        DefaultTableModel tb1Model=(DefaultTableModel)jTable1.getModel();
+        tb1Model.setRowCount(0);
+        quary="select * from elephant,health_vaccinate where elephant.id=health_vaccinate.eid and health_vaccinate.next_vaccine_date=?";
+        statement=con.prepareStatement(quary);
+        statement.setString(1, day2.getText());
+        ResultSet rs=statement.executeQuery();
+        
+        while(rs.next()){
+            String[] row= new String[3];
+            row[0]=String.valueOf(rs.getInt("id"));
+            row[1]=rs.getString("name");
+            row[2]=rs.getString("description");
+            
+           tb1Model.addRow(row);
+        }
+        statement.close();
 
     }
 
@@ -39,7 +72,8 @@ public class todayVaccines extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        day = new javax.swing.JLabel();
+        day2 = new javax.swing.JLabel();
+        day1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,9 +151,13 @@ public class todayVaccines extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 105, 68));
 
-        day.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
-        day.setForeground(new java.awt.Color(255, 255, 255));
-        day.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        day2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
+        day2.setForeground(new java.awt.Color(0, 105, 68));
+        day2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        day1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
+        day1.setForeground(new java.awt.Color(255, 255, 255));
+        day1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -127,15 +165,25 @@ public class todayVaccines extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(day, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(day2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(35, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addContainerGap(38, Short.MAX_VALUE)
+                    .addComponent(day1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(25, 25, 25)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(119, 119, 119)
-                .addComponent(day, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(day2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(140, 140, 140))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(129, 129, 129)
+                    .addComponent(day1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(392, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -205,13 +253,18 @@ public class todayVaccines extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new todayVaccines().setVisible(true);
+                try {
+                    new todayVaccines().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(todayVaccines.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel day;
+    private javax.swing.JLabel day1;
+    private javax.swing.JLabel day2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
