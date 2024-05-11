@@ -4,20 +4,42 @@
  */
 package elephantMangementSystem;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import src.Database;
+
 /**
  *
  * @author Timasha
  */
 public class donations extends javax.swing.JFrame {
-
+    private Database instance;
+    private Connection con;
+    private String quary1,quary2;
+    private PreparedStatement statement1,statement2;
     /**
      * Creates new form donate
      */
     public donations() {
+        instance = Database.getInstance();
+        con = instance.getConnection();
         initComponents();
+        clear();
         this.setResizable(false);
     }
-
+    public void clear(){
+        userName1.setText("");
+        userName2.setText("");
+        userName3.setText("");
+        userName4.setText("");
+        userName5.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -393,11 +415,29 @@ public class donations extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void donatebutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_donatebutMouseClicked
-
+        //
     }//GEN-LAST:event_donatebutMouseClicked
 
     private void donatebutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donatebutActionPerformed
-        // TODO add your handling code here:
+    try {
+            quary1="insert into donations(name,amount,email,phone,address) values(?,?,?,?,?)";
+            statement1=con.prepareStatement(quary1);
+            statement1.setString(1, userName1.getText());
+            statement1.setInt(2, Integer.parseInt(userName2.getText()));
+            statement1.setString(3, userName3.getText());
+            statement1.setString(4, userName4.getText());
+            statement1.setString(5, userName5.getText());
+            
+            int row=statement1.executeUpdate();
+            if(row>0){
+                JOptionPane.showMessageDialog(this, "Data Updating Is Successful!", "success", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+            statement1.close();
+            clear();
+        } catch (SQLException ex) {
+            Logger.getLogger(donations.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_donatebutActionPerformed
 
     private void userName2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userName2MouseClicked
@@ -449,7 +489,29 @@ public class donations extends javax.swing.JFrame {
     }//GEN-LAST:event_enterMouseClicked
 
     private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel tb1Model=(DefaultTableModel)jTable1.getModel();
+        tb1Model.setRowCount(0);
+        quary2="select * from donations where name like ?";       
+        try {
+            statement2 = con.prepareStatement(quary2);
+            statement2.setString(1,"%"+jTextField1.getText()+"%");
+            ResultSet rs = statement2.executeQuery();
+            
+            while(rs.next()){
+                Object[] row = new Object[8];
+                row[0]=rs.getString("name");
+                row[1]=String.valueOf(rs.getInt("id"));                
+                row[2]=rs.getString("email");               
+                row[3]=rs.getString("phone");
+                row[4]=rs.getString("address");                     
+                 
+                tb1Model.addRow(row);
+            }
+            statement2.close();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_enterActionPerformed
 
     /**
