@@ -395,7 +395,9 @@ public class DashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_infoMouseClicked
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
-        System.exit(0);
+        LogingPage obj = new LogingPage();
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_logoutMouseClicked
 
     private void healthMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_healthMouseClicked
