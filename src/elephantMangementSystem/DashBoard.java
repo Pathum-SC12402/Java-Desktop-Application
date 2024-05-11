@@ -240,25 +240,25 @@ public class DashBoard extends javax.swing.JFrame {
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel13.setForeground(new java.awt.Color(102, 102, 102));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Every");
         jPanel9.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 100, 30));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel14.setForeground(new java.awt.Color(102, 102, 102));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("Donation");
         jPanel9.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 100, 30));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel15.setForeground(new java.awt.Color(102, 102, 102));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("Has a");
         jPanel9.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 100, 30));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setForeground(new java.awt.Color(102, 102, 102));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("Hug Impact");
         jPanel9.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 100, 30));
@@ -287,25 +287,25 @@ public class DashBoard extends javax.swing.JFrame {
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Help");
         jPanel12.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 100, 40));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setForeground(new java.awt.Color(102, 102, 102));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Have ");
         jPanel12.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 100, 40));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setForeground(new java.awt.Color(102, 102, 102));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Elephants");
         jPanel12.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 100, 40));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setForeground(new java.awt.Color(102, 102, 102));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Received");
         jPanel12.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 100, 40));
