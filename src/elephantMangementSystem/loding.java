@@ -11,7 +11,7 @@ package elephantMangementSystem;
 public class loding extends javax.swing.JFrame {
 
     /**
-     * Creates new form loding
+     * Creates new form 
      */
     public loding() {
         initComponents();
