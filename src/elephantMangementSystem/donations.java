@@ -500,7 +500,7 @@ public class donations extends javax.swing.JFrame {
             while(rs.next()){
                 Object[] row = new Object[8];
                 row[0]=rs.getString("name");
-                row[1]=String.valueOf(rs.getInt("id"));                
+                row[1]=String.valueOf(rs.getInt("amount"));                
                 row[2]=rs.getString("email");               
                 row[3]=rs.getString("phone");
                 row[4]=rs.getString("address");                     

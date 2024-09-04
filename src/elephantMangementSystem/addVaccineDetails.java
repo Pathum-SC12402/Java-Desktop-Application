@@ -440,12 +440,13 @@ public class addVaccineDetails extends javax.swing.JFrame {
 
     private void donatebutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donatebutActionPerformed
         try {           
-            quary2="update health_vaccinate set date=?,description=?,next_vaccine_date=? where eid=?";
+            quary2="update health_vaccinate set date=?,description=?,next_vaccine_date=?,next_vaccinate_info=? where eid=?";
             statement2=con.prepareStatement(quary2);
             statement2.setString(1,userName2.getText());            
             statement2.setString(2,jTextArea3.getText());
             statement2.setString(3,userName9.getText());
-            statement2.setInt(4,Integer.parseInt(userName1.getText()));
+            statement2.setString(4,jTextArea4.getText());
+            statement2.setInt(5,Integer.parseInt(userName1.getText()));
             
             int row=statement2.executeUpdate();            
             
@@ -506,12 +507,13 @@ public class addVaccineDetails extends javax.swing.JFrame {
             ResultSet rs = statement1.executeQuery();
             
             while(rs.next()){
-                Object[] row = new Object[5];
+                Object[] row = new Object[6];
                 row[0]=String.valueOf(rs.getInt("eid"));
                 row[1]=rs.getString("name"); 
                 row[2]=rs.getString("date");             
                 row[3]=rs.getString("description");
-                row[4]=rs.getString("next_vaccine_date"); 
+                row[4]=rs.getString("next_vaccine_date");
+                row[5]=rs.getString("next_vaccinate_info"); 
                  
                 tb1Model.addRow(row);
             }
