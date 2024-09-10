@@ -55,7 +55,6 @@ public class DashBoard extends javax.swing.JFrame {
         info = new javax.swing.JButton();
         feed = new javax.swing.JButton();
         donate = new javax.swing.JButton();
-        help = new javax.swing.JButton();
         logout = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -160,22 +159,6 @@ public class DashBoard extends javax.swing.JFrame {
             }
         });
 
-        help.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        help.setForeground(new java.awt.Color(255, 255, 255));
-        help.setText("Help");
-        help.setContentAreaFilled(false);
-        help.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        help.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                helpMouseClicked(evt);
-            }
-        });
-        help.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                helpActionPerformed(evt);
-            }
-        });
-
         logout.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         logout.setForeground(new java.awt.Color(255, 255, 255));
         logout.setText("Log out");
@@ -203,7 +186,6 @@ public class DashBoard extends javax.swing.JFrame {
                     .addComponent(health, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(feed, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(donate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(help, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(logout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(35, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -227,7 +209,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addGap(55, 55, 55)
                 .addComponent(info)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(health)
@@ -235,11 +217,9 @@ public class DashBoard extends javax.swing.JFrame {
                 .addComponent(feed)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(donate)
-                .addGap(31, 31, 31)
-                .addComponent(help)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addComponent(logout)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addGap(43, 43, 43))
         );
 
         jPanel1.add(jPanel2);
@@ -409,10 +389,6 @@ public class DashBoard extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void helpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_helpActionPerformed
-
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_logoutActionPerformed
@@ -452,12 +428,6 @@ public class DashBoard extends javax.swing.JFrame {
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_donateMouseClicked
-
-    private void helpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_helpMouseClicked
-        help obj = new help();
-        obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_helpMouseClicked
 
     public static void main(String args[]){
 //        try {
@@ -501,7 +471,6 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JButton donate;
     private javax.swing.JButton feed;
     private javax.swing.JButton health;
-    private javax.swing.JButton help;
     private javax.swing.JButton info;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
