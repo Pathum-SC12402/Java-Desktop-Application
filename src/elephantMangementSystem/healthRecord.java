@@ -22,10 +22,10 @@ public class healthRecord extends javax.swing.JFrame {
     public healthRecord() {
         initComponents();
         this.setResizable(false);
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("MMMM-dd");
-        String strDate = formatter.format(date);
-        day.setText(strDate);
+        //Date date = new Date();
+        //SimpleDateFormat formatter = new SimpleDateFormat("MMMM-dd");
+        //String strDate = formatter.format(date);
+        //day.setText(strDate);
     }
 
     /**
@@ -37,24 +37,20 @@ public class healthRecord extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        day = new javax.swing.JLabel();
         health = new javax.swing.JButton();
         vaccine = new javax.swing.JButton();
         todayVac = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         todayVac1 = new javax.swing.JButton();
         todayVac2 = new javax.swing.JButton();
         vaccine1 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
         vaccine2 = new javax.swing.JButton();
+        vaccine3 = new javax.swing.JButton();
+        vaccine4 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        day.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 30)); // NOI18N
-        day.setForeground(new java.awt.Color(255, 255, 255));
-        day.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        getContentPane().add(day, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 380, 40));
 
         health.setBackground(new java.awt.Color(255, 255, 255));
         health.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 17)); // NOI18N
@@ -116,10 +112,6 @@ public class healthRecord extends javax.swing.JFrame {
         });
         getContentPane().add(todayVac, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 150, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/photo.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 540));
-
         todayVac1.setBackground(new java.awt.Color(255, 255, 255));
         todayVac1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 17)); // NOI18N
         todayVac1.setForeground(new java.awt.Color(255, 255, 255));
@@ -179,7 +171,6 @@ public class healthRecord extends javax.swing.JFrame {
             }
         });
         getContentPane().add(vaccine1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 160, 30));
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, 150, 120));
 
         vaccine2.setBackground(new java.awt.Color(255, 255, 255));
         vaccine2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 17)); // NOI18N
@@ -200,6 +191,62 @@ public class healthRecord extends javax.swing.JFrame {
             }
         });
         getContentPane().add(vaccine2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 160, 30));
+
+        vaccine3.setBackground(new java.awt.Color(255, 255, 255));
+        vaccine3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 17)); // NOI18N
+        vaccine3.setForeground(new java.awt.Color(255, 255, 255));
+        vaccine3.setText("ADD vaccine details");
+        vaccine3.setBorder(null);
+        vaccine3.setContentAreaFilled(false);
+        vaccine3.setFocusPainted(false);
+        vaccine3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        vaccine3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                vaccine3MouseClicked(evt);
+            }
+        });
+        vaccine3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vaccine3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(vaccine3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 160, 30));
+
+        vaccine4.setBackground(new java.awt.Color(255, 255, 255));
+        vaccine4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 17)); // NOI18N
+        vaccine4.setForeground(new java.awt.Color(255, 255, 255));
+        vaccine4.setText("ADD vaccine details");
+        vaccine4.setBorder(null);
+        vaccine4.setContentAreaFilled(false);
+        vaccine4.setFocusPainted(false);
+        vaccine4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        vaccine4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                vaccine4MouseClicked(evt);
+            }
+        });
+        vaccine4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vaccine4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(vaccine4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 160, 30));
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("BACK");
+        jButton1.setContentAreaFilled(false);
+        jButton1.setFocusPainted(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 460, -1, 40));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/photo.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 540));
 
         pack();
         setLocationRelativeTo(null);
@@ -271,6 +318,28 @@ public class healthRecord extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_vaccine2ActionPerformed
 
+    private void vaccine3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vaccine3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vaccine3MouseClicked
+
+    private void vaccine3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaccine3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vaccine3ActionPerformed
+
+    private void vaccine4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vaccine4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vaccine4MouseClicked
+
+    private void vaccine4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaccine4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vaccine4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        DashBoard obj = new DashBoard();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -307,15 +376,16 @@ public class healthRecord extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel day;
     private javax.swing.JButton health;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton todayVac;
     private javax.swing.JButton todayVac1;
     private javax.swing.JButton todayVac2;
     private javax.swing.JButton vaccine;
     private javax.swing.JButton vaccine1;
     private javax.swing.JButton vaccine2;
+    private javax.swing.JButton vaccine3;
+    private javax.swing.JButton vaccine4;
     // End of variables declaration//GEN-END:variables
 }
